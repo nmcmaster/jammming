@@ -53,6 +53,7 @@ class App extends Component {
     this.updatePlaylistName = this.updatePlaylistName.bind(this);
     this.savePlaylist = this.savePlaylist.bind(this);
     this.search = this.search.bind(this);
+    Spotify.getAccessToken();
   }
   addTrack(track) {
     if (this.state.playlistTracks.find(savedTrack => savedTrack.id === track.id)) {
@@ -90,6 +91,7 @@ class App extends Component {
     Spotify.search(term).then(res => this.setState({
       searchResults: res
     }));
+
   }
   render() {
     return (
