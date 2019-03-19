@@ -5,7 +5,6 @@ const clientID = 'bd9d7ae014724f6dbc3740bb204cd1cc';
 const redirectURI = 'http://localhost:3000';
 
 const Spotify = {
-
     getAccessToken() {
       if(accessToken) {
         console.log('AT already set '+accessToken);
@@ -49,7 +48,39 @@ const Spotify = {
         return arr;
       }
     })
-  }
+   },
+   savePlaylist(playlistName, playlistTracks) {
+     if (playlistName && playlistTracks) {
+       let token = accessToken;
+       let headers = {
+         Authorization: 'Bearer ' + token
+       };
+       let id;
+       fetch('https://api.spotify.com/v1/me', {
+         headers: headers
+       }).then(response => {
+         if (response.ok) {
+           return response.json();
+         }
+       }).then(jsonResponse => {
+          fetch(`https://api.spotify.com/v1/users/${jsonResponse.id}/playlists`, {
+           method: 'POST',
+           headers: headers,
+           body: JSON.stringify({
+             name: playlistName
+           })
+         }).then(jsonResponse => {
+           let x = jsonResponse.json();
+           console.log(x);
+           let playlistID = x.id;
+           console.log(playlistID);
+         })
+
+       })
+     } else {
+       return;
+     }
+   },
 
 };
 

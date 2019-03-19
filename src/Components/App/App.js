@@ -80,12 +80,13 @@ class App extends Component {
   //  console.log(this.state.playlistName);
   }
   savePlaylist() {
-    let trackURIarr = [];
+    Spotify.savePlaylist('derp','derpp');
+    /*  let trackURIarr = [];
     this.state.playlistTracks.map(x => {
       trackURIarr.push(x.uri);
     });
     console.log(trackURIarr);
-    return trackURIarr;
+    return trackURIarr; */
   }
   search(term) {
     Spotify.search(term).then(res => this.setState({
